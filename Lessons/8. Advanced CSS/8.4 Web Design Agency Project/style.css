@@ -19,3 +19,52 @@ footer {
   color: midnightblue;
 }
 
+.tile-image {
+  height: 200px;
+  float: left;
+  margin: 50px;
+}
+
+.card {
+  width: 45%;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.creative {
+  color: midnightblue;
+}
+@media (max-width:680px) {
+  .card {
+    width: 100%;
+    text-align: justify;
+    display: block;
+  }
+
+  .card img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .tile-image {
+    height: 200px;
+    float: left;
+    margin: 0px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .logo {
+    width: 25%;
+  }
+}
