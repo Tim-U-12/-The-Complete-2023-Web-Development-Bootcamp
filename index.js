@@ -1,1 +1,3 @@
-document.querySelector(".btn").classList.add("invisible")
+function hideButton() {
+    document.querySelector(".btn").classList.toggle("invisible")
+}
