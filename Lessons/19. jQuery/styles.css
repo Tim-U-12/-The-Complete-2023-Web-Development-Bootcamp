@@ -1,0 +1,10 @@
+.big-title {
+    font-size: 100px;
+    font-family: monospace;
+    background-color: indigo;
+    font-weight: bolder;
+}
+
+.margin-50 {
+    margin: 50px;
+}
