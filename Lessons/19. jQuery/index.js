@@ -7,6 +7,18 @@ $(document).ready(function() {
         console.log($("h1").attr("class"));
     });
 
+    $(".fade-hide").click(function(){
+        $("h1").fadeOut();
+    });
+
+    $(".fade-appear").click(function(){
+        $("h1").fadeIn();
+    });
+
+    $(".anime").on("click", function(){
+        $("h1").animate({opacity: 0.5})
+    });
+
     $("h1").on("mouseover", function(){
         $("h1").css("color", "pink")
     });
