@@ -15,6 +15,7 @@ $(document).ready(function() {
         $("h1").fadeIn();
     });
 
+    // the 2nd value has to be a number eg.opacity:0.5
     $(".anime").on("click", function(){
         $("h1").animate({opacity: 0.5})
     });
