@@ -1,4 +1,6 @@
+var started = false
 var gamePattern = []
+var userClickedPattern = []
 var buttonColours = ["red", "blue", "green", "yellow"];
 var randomChosenColour = buttonColours[nextSequence()]
 
@@ -11,7 +13,7 @@ function flash(colourID) {
     $("#" + colourID).fadeOut(200).fadeIn(200)
 }
 
-function buttonSound(colourID) {
+function playSound(colourID) {
     switch (colourID) {
         case 'red':
             var redSound = new Audio("./sounds/red.mp3");
@@ -39,8 +41,30 @@ function buttonSound(colourID) {
     }
 }
 
-gamePattern.push(randomChosenColour)
-$(".btn").click(function() {
-    flash(gamePattern[0])
-    buttonSound(gamePattern[0])
+function animatePress(currentColour) {
+    $("#"+currentColour).addClass("pressed")
+    setTimeout(function() {
+        $("#"+currentColour).removeClass("pressed")
+    }, 100)
+}
+
+
+// flash(gamePattern[gamePattern.length - 1])
+// playSound(gamePattern[gamePattern.length - 1])
+$(document).keypress(function(event){
+    if (started === false) {
+        gamePattern.push(randomChosenColour)
+    nextSequence()
+    }
 })
+
+
+$(".btn").click(function(){
+    var userChosenColour = this.id
+    userClickedPattern.push(userChosenColour)
+    playSound(userChosenColour)
+    animatePress(userChosenColour)
+    console.log(userClickedPattern)
+})
+
+
