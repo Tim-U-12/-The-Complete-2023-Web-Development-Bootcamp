@@ -2,11 +2,13 @@ var started = false
 var gamePattern = []
 var userClickedPattern = []
 var buttonColours = ["red", "blue", "green", "yellow"];
-var randomChosenColour = buttonColours[nextSequence()]
 
 function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4)
-    return randomNumber
+    var randomChosenColour = buttonColours[randomNumber]
+    gamePattern.push(randomChosenColour)
+    playSound(randomChosenColour)
+    animatePress(randomChosenColour)
 }
 
 function flash(colourID) {
@@ -48,13 +50,30 @@ function animatePress(currentColour) {
     }, 100)
 }
 
+function updateLevelTitle() {
+    $("#level-title").text("Level "+ gamePattern.length)
+}
 
-// flash(gamePattern[gamePattern.length - 1])
-// playSound(gamePattern[gamePattern.length - 1])
+function resetGame() {
+    $("#level-title").text("Game Over, Press Any Key to Restart")
+    // reset patterns
+    gamePattern = []
+    userClickedPattern = []
+    started = false
+}
+
+function gameOverBackground() {
+    $("body").addClass("game-over")
+    setTimeout(function() {
+        $("body").removeClass("game-over")
+    }, 200)
+}
+
 $(document).keypress(function(event){
     if (started === false) {
-        gamePattern.push(randomChosenColour)
-    nextSequence()
+        nextSequence()
+        updateLevelTitle()
+        started = true
     }
 })
 
@@ -62,9 +81,21 @@ $(document).keypress(function(event){
 $(".btn").click(function(){
     var userChosenColour = this.id
     userClickedPattern.push(userChosenColour)
-    playSound(userChosenColour)
-    animatePress(userChosenColour)
-    console.log(userClickedPattern)
+    if (gamePattern[userClickedPattern.length - 1] != userClickedPattern[userClickedPattern.length - 1]) {
+        playSound("wrong")
+        animatePress(userChosenColour)
+        gameOverBackground()
+        resetGame()
+    } else {
+        playSound(userChosenColour)
+        animatePress(userChosenColour)
+    }
+
+    // if they're at the end of the list
+    if (gamePattern.length === userClickedPattern.length) {
+        nextSequence()
+        updateLevelTitle()
+    }
 })
 
 
