@@ -4,11 +4,14 @@ var userClickedPattern = []
 var buttonColours = ["red", "blue", "green", "yellow"];
 
 function nextSequence() {
+    userClickedPattern = []
     var randomNumber = Math.floor(Math.random() * 4)
     var randomChosenColour = buttonColours[randomNumber]
     gamePattern.push(randomChosenColour)
-    playSound(randomChosenColour)
-    animatePress(randomChosenColour)
+    setTimeout(function(){
+        playSound(randomChosenColour)
+        animatePress(randomChosenColour)
+    }, 500)
 }
 
 function flash(colourID) {
@@ -81,20 +84,19 @@ $(document).keypress(function(event){
 $(".btn").click(function(){
     var userChosenColour = this.id
     userClickedPattern.push(userChosenColour)
-    if (gamePattern[userClickedPattern.length - 1] != userClickedPattern[userClickedPattern.length - 1]) {
-        playSound("wrong")
-        animatePress(userChosenColour)
+    playSound(userChosenColour)
+    animatePress(userChosenColour)
+
+    // check if the user added the correct colour
+    if (gamePattern[userClickedPattern.length - 1] === userClickedPattern[userClickedPattern.length - 1]){
+        // Check if we're at the end of the list
+        if (gamePattern.length === userClickedPattern.length){
+            nextSequence()
+            updateLevelTitle()
+        }
+    } else {
         gameOverBackground()
         resetGame()
-    } else {
-        playSound(userChosenColour)
-        animatePress(userChosenColour)
-    }
-
-    // if they're at the end of the list
-    if (gamePattern.length === userClickedPattern.length) {
-        nextSequence()
-        updateLevelTitle()
     }
 })
 
