@@ -7,6 +7,7 @@ app.use(logger);
 
 function logger(req, res, next) {
   console.log(req.url)
+  next()
 };
 
 app.get("/", (req, res) => {
