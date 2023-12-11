@@ -5,6 +5,10 @@ const port = 3000;
 
 app.use(logger);
 
+function logger(req, res, next) {
+  console.log(req.url)
+};
+
 app.get("/", (req, res) => {
   res.send("Hello");
 });
