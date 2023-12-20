@@ -17,12 +17,10 @@ app.get("/", async (req, res) => {
     try {
         const response = await axios.get(API_URL + "/random")
         const data = response.data
-        const username = data.username
-        const secret = data.secret
 
         res.render("index.ejs", {
-            secret: secret,
-            user: username
+            secret: data.secret,
+            user: data.username
         })
     } catch (error) {
         console.log(error)
