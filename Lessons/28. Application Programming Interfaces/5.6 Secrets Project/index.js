@@ -23,7 +23,8 @@ app.get("/", async (req, res) => {
             user: data.username
         })
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data)
+        res.status(500)
     }
 })
 
