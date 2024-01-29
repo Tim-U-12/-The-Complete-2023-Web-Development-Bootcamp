@@ -36,10 +36,12 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/add", async (req, res) => {
-  let visited_country = req.body.country.toUpperCase()
+  let visited_country = req.body.country
 
   try {
-    const result = await db.query('INSERT INTO visited_countries (country_code) VALUES ($1)', [visited_country])
+    const result = await db.query('SELECT country_code FROM countries WHERE country_name = $1', [visited_country])
+    const country_code = result.rows[0].country_code
+    await db.query('INSERT INTO visited_countries (country_code) VALUES ($1)', [country_code])
     res.redirect('/')
   } catch (err) {
     console.log(err)
