@@ -148,4 +148,4 @@ dist
 .pnp.*
 
 # passcodes
-/passcodes.json
+passcodes.json/
