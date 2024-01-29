@@ -1,6 +1,12 @@
+import dotenv from 'dotenv'
 import express from "express";
 import bodyParser from "body-parser";
 import pg from 'pg';
+
+const result = dotenv.config({ path: '../../../.env'})
+if (result.error) {
+  throw result.error;
+}
 
 const app = express();
 const port = 3000;
@@ -9,7 +15,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "world",
-  password: "xxx",
+  password: process.env.PG_PASSWORD,
   port: 5432,
 })
 db.connect()
