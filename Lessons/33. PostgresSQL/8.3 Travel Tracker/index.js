@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "world",
-  password: "xxx",
+  password: "P0werp1g",
   port: 5432,
 })
 db.connect()
@@ -26,8 +26,21 @@ app.get("/", async (req, res) => {
     countries.push(country.country_code)
   })
   res.render("index.ejs", {countries: countries, total: countries.length})
-  db.end()
+  // db.end()
 });
+
+app.post("/add", async (req, res) => {
+  let visited_country = req.body.country.toUpperCase()
+
+  try {
+    const result = await db.query('INSERT INTO visited_countries (country_code) VALUES ($1)', [visited_country])
+    console.log(visited_country)
+    res.redirect('/')
+  } catch (err) {
+    console.log(err)
+    res.status(500).send('Server Error')
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
