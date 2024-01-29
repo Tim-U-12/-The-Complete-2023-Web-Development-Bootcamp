@@ -9,7 +9,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "world",
-  password: "XXX",
+  password: "xxx",
   port: 5432,
 })
 db.connect()
@@ -34,7 +34,6 @@ app.post("/add", async (req, res) => {
 
   try {
     const result = await db.query('INSERT INTO visited_countries (country_code) VALUES ($1)', [visited_country])
-    console.log(visited_country)
     res.redirect('/')
   } catch (err) {
     console.log(err)
