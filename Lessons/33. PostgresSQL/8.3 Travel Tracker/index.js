@@ -43,7 +43,7 @@ app.post("/add", async (req, res) => {
   let visited_country = req.body.country
   
   try {
-    const result = await db.query('SELECT country_code FROM countries WHERE country_name LIKE  $1', [`%${visited_country}%`])
+    const result = await db.query('SELECT country_code FROM countries WHERE LOWER(country_name) LIKE  $1', [`%${visited_country.toLowerCase()}%`])
     const country_code = result.rows[0].country_code
     try {
       await db.query('INSERT INTO visited_countries (country_code) VALUES ($1)', [country_code])
