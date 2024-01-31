@@ -23,16 +23,20 @@ db.connect()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", async (req, res) => {
-  //Write your code here.
+async function checkVisited() {
   const result = await db.query("SELECT country_code FROM visited_countries")
   let countries = []
 
   result.rows.forEach((country) => {
     countries.push(country.country_code)
   })
+
+  return countries
+}
+
+app.get("/", async (req, res) => {
+  const countries = await checkVisited()
   res.render("index.ejs", {countries: countries, total: countries.length})
-  // db.end()
 });
 
 app.post("/add", async (req, res) => {
